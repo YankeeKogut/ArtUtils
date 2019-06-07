@@ -23,7 +23,7 @@ A quick example:
      var sut = dut.ToDataTable(Constants.DBTableName, Constants.DBSchema);
      
     using (var connection = 
-                new SqlConnection("Data Source=.;Initial Catalog=SqlBulkTestDb;Integrated Security=True")
+                new SqlConnection("Data Source=.;Initial Catalog=SqlBulkTestDb;Integrated Security=True")  
     {
         BulkSql.Insert(sut, connection);
     }
