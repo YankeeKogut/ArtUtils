@@ -1,7 +1,7 @@
 # ArtUtils
 
-- Bulk Insert for Sqlserver
-- Conversion of any iEumerable to Data Table
+- Bulk Insert for Sqlserver (from static BulkSql class)
+- Conversion of any iEumerable to Data Table (as ToDataTable() extension method)
 
 ## NuGet Gallery
 
