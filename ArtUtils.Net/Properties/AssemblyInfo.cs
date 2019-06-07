@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ArtUtils.Net")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Set of fast utilities for Bulk SQL operations in .NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Square Circle")]
 [assembly: AssemblyProduct("ArtUtils.Net")]
