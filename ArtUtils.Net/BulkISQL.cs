@@ -46,7 +46,21 @@ namespace ArtUtils.Net
                 };
 
             sqlConnection.Open();
-            bulkCopy.WriteToServer(dataTable);
+            try
+            {
+                bulkCopy.WriteToServer(dataTable);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                if (e.Message == Constants.ErrWrongDataType)
+                {
+                    throw new Exception(Constants.ErrorMessageFixColumnsOrder, e);
+                }
+
+                throw;
+            }
+            
             sqlConnection.Close();
         }
     }
