@@ -50,6 +50,7 @@
     <None Include="ArtUtils.Net.nuspec">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="build.nuget.bat" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
