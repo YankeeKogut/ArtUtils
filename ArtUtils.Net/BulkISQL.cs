@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace ArtUtils.Net
 {
@@ -70,6 +72,83 @@ namespace ArtUtils.Net
             {
                 sqlConnection.Close();
             }
+        }
+
+        public static void Update(DataTable tableSource, string sqlConnectionString, string keyFieldName,
+            string targetTableName,
+            string targetSchema = "", List<string> fieldsToUpdate = null)
+        {
+            var connection = new SqlConnection(sqlConnectionString);
+
+            Update(tableSource, connection, keyFieldName, targetTableName, targetSchema, fieldsToUpdate);
+        }
+
+        public static void Update(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,
+            string targetSchema = "", List<string> fieldsToUpdate = null)
+        {
+            var tempTableName = GetTempTableName();
+            var dest = targetSchema == string.Empty
+                ? targetTableName
+                : targetSchema + "." + targetTableName;
+
+            if (fieldsToUpdate == null)
+            {
+                fieldsToUpdate = GetFieldsToUpdate(tableSource, keyFieldName);
+            }
+
+            var updateColumnList = fieldsToUpdate.Select(f => $"TARGET.{f} = SOURCE.{f}");
+
+            var updateColumnsString = string.Join("," + Environment.NewLine, updateColumnList);
+
+            var sqlUpdate = "UPDATE TARGET SET " + Environment.NewLine +
+                            updateColumnsString + Environment.NewLine +
+                            $" FROM {dest} TARGET " + Environment.NewLine +
+                            $" INNER JOIN {tempTableName} SOURCE ON TARGET.{keyFieldName}=SOURCE.{keyFieldName}" +
+                            Environment.NewLine;
+
+            var sqlCreateTable = $"SELECT * INTO {tempTableName} FROM {dest} WHERE 1=0";
+
+            var sqlDropTable = $"DROP TABLE {tempTableName}";
+
+            var commandCreateTable = new SqlCommand(sqlCreateTable, connection);
+            var commandUpdateTable = new SqlCommand(sqlUpdate, connection);
+            var commandDropTable = new SqlCommand(sqlDropTable, connection);
+
+            var connectionStateInitial = connection.State;
+            if (connectionStateInitial != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
+            commandCreateTable.ExecuteNonQuery();
+            Insert(tableSource, connection, tempTableName);
+            commandUpdateTable.ExecuteNonQuery();
+            commandDropTable.ExecuteNonQuery();
+
+            if (connectionStateInitial != ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        private static List<string> GetFieldsToUpdate(DataTable tableSource, string keyFieldName)
+        {
+            var fieldsToUpdate = new List<string>();
+
+            foreach (DataColumn tableSourceColumn in tableSource.Columns)
+            {
+                if (!tableSourceColumn.ColumnName.Equals(keyFieldName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    fieldsToUpdate.Add(tableSourceColumn.ColumnName);
+                }
+            }
+
+            return fieldsToUpdate;
+        }
+
+        private static string GetTempTableName()
+        {
+            return "#TempArtUtils" + DateTime.UtcNow.ToString("HHmmssfff");
         }
     }
 }
