@@ -45,7 +45,12 @@ namespace ArtUtils.Net
                     DestinationTableName = dest
                 };
 
-            sqlConnection.Open();
+            var connectionStateInitial = sqlConnection.State;
+            if (connectionStateInitial != ConnectionState.Open)
+            {
+                sqlConnection.Open();
+            }
+
             try
             {
                 bulkCopy.WriteToServer(dataTable);
@@ -60,8 +65,11 @@ namespace ArtUtils.Net
 
                 throw;
             }
-            
-            sqlConnection.Close();
+
+            if (connectionStateInitial != ConnectionState.Open)
+            {
+                sqlConnection.Close();
+            }
         }
     }
 }
