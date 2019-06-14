@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using ArtUtils.Net.Interfaces;
 
 namespace ArtUtils.Net
 {
-    public static class BulkSql
+    public class BulkSql : IBulkSql
     {
-        public static void Insert(DataTable dataTable, string sqlConnectionString, string targetTableName, string targetSchemaName = "")
+        public void Insert(DataTable dataTable, string sqlConnectionString, string targetTableName, string targetSchemaName = "")
         {
             var connection = new SqlConnection(sqlConnectionString);
 
             Insert(dataTable, connection, targetTableName, targetSchemaName);
         }
 
-        public static void Insert(DataTable dataTable, SqlConnection sqlConnection)
+        public void Insert(DataTable dataTable, SqlConnection sqlConnection)
         {
             var tableName = dataTable.TableName;
             if (string.IsNullOrEmpty(tableName))
@@ -28,7 +29,7 @@ namespace ArtUtils.Net
             Insert(dataTable, sqlConnection, tableName, schema);
         }
 
-        public static void Insert(DataTable dataTable, SqlConnection sqlConnection, string targetTableName, string targetSchemaName = "")
+        public void Insert(DataTable dataTable, SqlConnection sqlConnection, string targetTableName, string targetSchemaName = "")
         {
             var dest = targetSchemaName == string.Empty
                 ? targetTableName
@@ -74,7 +75,7 @@ namespace ArtUtils.Net
             }
         }
 
-        public static void Update(DataTable tableSource, string sqlConnectionString, string keyFieldName,
+        public void Update(DataTable tableSource, string sqlConnectionString, string keyFieldName,
             string targetTableName,
             string targetSchema = "", List<string> fieldsToUpdate = null)
         {
@@ -83,7 +84,7 @@ namespace ArtUtils.Net
             Update(tableSource, connection, keyFieldName, targetTableName, targetSchema, fieldsToUpdate);
         }
 
-        public static void Update(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,
+        public void Update(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,
             string targetSchema = "", List<string> fieldsToUpdate = null)
         {
             var tempTableName = GetTempTableName();
