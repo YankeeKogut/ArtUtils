@@ -25,7 +25,7 @@ A quick example:
     using (var connection = 
                 new SqlConnection("Data Source=.;Initial Catalog=SqlBulkTestDb;Integrated Security=True")  
     {
-        BulkSql.Insert(sut, connection);
+        new BulkSql().Insert(sut, connection);
     }
 ```
 
