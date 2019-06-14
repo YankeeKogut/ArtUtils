@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.0.5</version>
+    <version>1.0.0.6</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://github.com/YankeeKogut/ArtUtils</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Work in progress. Added BulkSQL class interface</releaseNotes>
+    <releaseNotes>Work in progress. Fixed build errors</releaseNotes>
     <copyright>Copyright 2019 Square Circle / Artsikhovsky</copyright>
     <tags>Bulk SQL Utility</tags>
   </metadata>
