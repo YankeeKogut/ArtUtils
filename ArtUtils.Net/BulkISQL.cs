@@ -7,8 +7,12 @@ using ArtUtils.Net.Interfaces;
 
 namespace ArtUtils.Net
 {
+    // ReSharper disable once UnusedMember.Global
     public class BulkSql : IBulkSql
     {
+        #region Inserts
+
+
         public void Insert(DataTable dataTable, string sqlConnectionString, string targetTableName, string targetSchemaName = "")
         {
             var connection = new SqlConnection(sqlConnectionString);
@@ -31,9 +35,7 @@ namespace ArtUtils.Net
 
         public void Insert(DataTable dataTable, SqlConnection sqlConnection, string targetTableName, string targetSchemaName = "")
         {
-            var dest = targetSchemaName == string.Empty
-                ? targetTableName
-                : targetSchemaName + "." + targetTableName;
+            var dest = GetTargetName(targetTableName, targetSchemaName);
 
             var bulkCopy =
                 new SqlBulkCopy
@@ -74,6 +76,9 @@ namespace ArtUtils.Net
                 sqlConnection.Close();
             }
         }
+        #endregion
+
+        #region Updates
 
         public void Update(DataTable tableSource, string sqlConnectionString, string keyFieldName,
             string targetTableName,
@@ -88,9 +93,7 @@ namespace ArtUtils.Net
             string targetSchema = "", List<string> fieldsToUpdate = null)
         {
             var tempTableName = GetTempTableName();
-            var dest = targetSchema == string.Empty
-                ? targetTableName
-                : targetSchema + "." + targetTableName;
+            var dest = GetTargetName(targetTableName, targetSchema);
 
             if (fieldsToUpdate == null)
             {
@@ -132,6 +135,81 @@ namespace ArtUtils.Net
             }
         }
 
+        #endregion
+
+        #region Merge
+
+
+        public void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName)
+        {
+            var tableName = tableSource.TableName;
+            Merge(tableSource, connection, keyFieldName, tableName);
+        }
+
+        public void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,
+            string targetSchema = "", List<string> fieldsToUpdate = null)
+        {
+            var tempTableName = GetTempTableName();
+            var dest = GetTargetName(targetTableName, targetSchema);
+
+            if (fieldsToUpdate == null)
+            {
+                fieldsToUpdate = GetFieldsToUpdate(tableSource, keyFieldName);
+            }
+
+            var updateColumnList = fieldsToUpdate.Select(f => $"TARGET.{f} = SOURCE.{f}");
+            var updateColumnsString = string.Join("," + Environment.NewLine, updateColumnList);
+
+            var insertColumnList = GetFieldsToInsert(tableSource, string.Empty);
+            var insertSourceColumnList = GetFieldsToInsert(tableSource, "SOURCE.");
+
+            var sqlCreateTable = $"SELECT * INTO {tempTableName} FROM {dest} WHERE 1=0";
+
+            var sqlMerge = string.Join(Environment.NewLine,
+                $"MERGE {dest} AS TARGET ",
+                $"USING {tempTableName} AS SOURCE",
+                $"ON (TARGET.{keyFieldName} = SOURCE.{keyFieldName})",
+                $"WHEN MATCHED ",
+                $"THEN UPDATE SET {updateColumnsString}",
+                $"WHEN NOT MATCHED BY TARGET ",
+                $"THEN INSERT ({string.Join("," + Environment.NewLine, insertColumnList)}) ",
+                $"VALUES ({string.Join("," + Environment.NewLine, insertSourceColumnList)});"
+                );
+
+            var sqlDropTable = $"DROP TABLE {tempTableName}";
+
+            var commandCreateTable = new SqlCommand(sqlCreateTable, connection);
+            var commandMergeToTable = new SqlCommand(sqlMerge, connection);
+            var commandDropTable = new SqlCommand(sqlDropTable, connection);
+
+            var connectionStateInitial = connection.State;
+            if (connectionStateInitial != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
+            commandCreateTable.ExecuteNonQuery();
+            Insert(tableSource, connection, tempTableName);
+            commandMergeToTable.ExecuteNonQuery();
+            commandDropTable.ExecuteNonQuery();
+
+
+            if (connectionStateInitial != ConnectionState.Open)
+            {
+                connection.Close();
+            }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private static string GetTargetName(string targetTableName, string targetSchema)
+        {
+            return targetSchema == string.Empty
+                ? targetTableName
+                : targetSchema + "." + targetTableName;
+        }
         private static List<string> GetFieldsToUpdate(DataTable tableSource, string keyFieldName)
         {
             var fieldsToUpdate = new List<string>();
@@ -147,9 +225,24 @@ namespace ArtUtils.Net
             return fieldsToUpdate;
         }
 
+        private static List<string> GetFieldsToInsert(DataTable tableSource, string prefix)
+        {
+            var result = new List<string>();
+
+            foreach (DataColumn tableSourceColumn in tableSource.Columns)
+            {
+                result.Add(prefix + tableSourceColumn.ColumnName);
+            }
+
+            return result;
+        }
+
         private static string GetTempTableName()
         {
+            // ReSharper disable once StringLiteralTypo
             return "#TempArtUtils" + DateTime.UtcNow.ToString("HHmmssfff");
         }
+
+        #endregion
     }
 }

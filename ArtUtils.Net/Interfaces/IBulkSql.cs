@@ -19,5 +19,11 @@ namespace ArtUtils.Net.Interfaces
         void Update(DataTable tableSource, SqlConnection connection, string keyFieldName,
             string targetTableName,
             string targetSchema = "", List<string> fieldsToUpdate = null);
+
+        void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName,
+            string targetTableName,
+            string targetSchema = "", List<string> fieldsToUpdate = null);
+
+        void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName);
     }
 }
