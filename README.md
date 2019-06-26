@@ -1,6 +1,6 @@
 # ArtUtils
 
-- Bulk Insert and Bulk Update for Sqlserver 
+- Bulk Insert, Update and Merge for SQL Server 
 - Conversion of any iEumerable to Data Table (as ToDataTable() extension method)
 
 ## NuGet Gallery
@@ -29,3 +29,7 @@ A quick example:
     }
 ```
 
+##Release history
+
+1.0.0.6 - Added Update
+1.0.0.7 - Added Merge
