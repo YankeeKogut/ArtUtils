@@ -143,7 +143,8 @@ namespace ArtUtils.Net
         public void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName)
         {
             var tableName = tableSource.TableName;
-            Merge(tableSource, connection, keyFieldName, tableName);
+            var schemaName = tableSource.Namespace;
+            Merge(tableSource, connection, keyFieldName, tableName, schemaName);
         }
 
         public void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,

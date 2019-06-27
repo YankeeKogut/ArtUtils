@@ -32,4 +32,8 @@ A quick example:
 ##Release history
 
 1.0.0.6 - Added Update
+
 1.0.0.7 - Added Merge
+
+1.0.7.2 - Changed versioning to allow bug fix references
+	Fixed Merge method that was ignoring datatable schema name

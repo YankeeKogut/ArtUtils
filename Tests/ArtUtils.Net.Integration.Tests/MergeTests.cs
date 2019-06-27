@@ -24,7 +24,7 @@ namespace ArtUtils.Net.Integration.Tests
             var clearCommand = new SqlCommand("DELETE FROM Products", connection);
             clearCommand.ExecuteNonQuery();
 
-            new BulkSql().Insert(sampleDataList.ToDataTable("Products"), connection);
+            new BulkSql().Insert(sampleDataList.ToDataTable("Products", "dbo"), connection);
 
             var mergeDataList = new List<SampleDataClass>
             {
@@ -50,6 +50,51 @@ namespace ArtUtils.Net.Integration.Tests
             }
 
             Assert.AreEqual(3, sut.Count);
+        }
+
+        [Test]
+        public void MergeWrongSchemaTest()
+        {
+            const string connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MergeTest;Integrated Security=SSPI";
+
+            var sampleDataList = new List<SampleDataClass>
+            {
+                new SampleDataClass { ProductID = 1, ProductName = "One" },
+                new SampleDataClass { ProductID = 2, ProductName = "Two" }
+            };
+
+            var connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            var clearCommand = new SqlCommand("DELETE FROM Products", connection);
+            clearCommand.ExecuteNonQuery();
+
+            new BulkSql().Insert(sampleDataList.ToDataTable("Products"), connection);
+
+            var mergeDataList = new List<SampleDataClass>
+            {
+                new SampleDataClass { ProductID = 2, ProductName = "ModifiedTwo" },
+                new SampleDataClass { ProductID = 3, ProductName = "Three" }
+            };
+
+            Assert.Throws<SqlException>(()=> new BulkSql().Merge(mergeDataList.ToDataTable("Products", "WromgSchema"), connection, "ProductId"));
+
+            var selectCommand = new SqlCommand("SELECT * FROM Products", connection);
+            var dr = selectCommand.ExecuteReader();
+
+            var sut = new List<SampleDataClass>();
+
+            while (dr.Read())
+            {
+                sut.Add(new SampleDataClass
+                {
+                    ProductID = Convert.ToInt32(dr["ProductId"]),
+                    ProductName = dr["ProductName"].ToString()
+                });
+
+            }
+
+            Assert.AreNotEqual(3, sut.Count);
         }
     }
 }
