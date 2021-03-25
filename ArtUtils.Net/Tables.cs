@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Reflection;
+using ArtUtils.Net.Attributes;
 
 namespace ArtUtils.Net
 {
@@ -19,7 +21,8 @@ namespace ArtUtils.Net
 
             foreach (var info in properties)
             {
-                dataTable.Columns.Add(new DataColumn(info.Name, Nullable.GetUnderlyingType(info.PropertyType) ?? info.PropertyType));
+                dataTable.Columns.Add(new DataColumn(GetColumnName(info),
+                    Nullable.GetUnderlyingType(info.PropertyType) ?? info.PropertyType));
             }
 
             foreach (var entity in list)
@@ -34,6 +37,21 @@ namespace ArtUtils.Net
             }
 
             return dataTable;
+        }
+
+        internal static string GetColumnName(PropertyInfo info)
+        {
+            var result = info.Name;
+            foreach (var attr in Attribute.GetCustomAttributes(info))
+            {
+                if (attr is FieldName fn)
+                {
+                    result = fn.Name;
+                    break;
+                }
+            }
+
+            return result;
         }
     }
 }

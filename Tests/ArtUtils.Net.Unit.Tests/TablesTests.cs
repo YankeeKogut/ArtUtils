@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using DataTable = System.Data.DataTable;
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -54,6 +55,32 @@ namespace ArtUtils.Net.Unit.Tests
 
             Assert.IsInstanceOf<DataTable>(rut);
             Assert.AreEqual(nameSpace, rut.Namespace);
+        }
+
+        [Test]
+        public void GetColumnNameWithoutAttributes()
+        {
+            var sample = new SampleDataClass();
+
+            var type = typeof(SampleDataClass);
+            var properties = type.GetProperties();
+
+            var sutFound = properties.Any(ts => Tables.GetColumnName(ts) == "ProductID");
+
+            Assert.IsTrue(sutFound, "Failed to find column name for the field without attributes");
+        }
+
+        [Test]
+        public void GetColumnNameWithAttributes()
+        {
+            var sample = new SampleDataClass();
+
+            var type = typeof(SampleDataClass);
+            var properties = type.GetProperties();
+
+            var sutFound = properties.Any(ts => Tables.GetColumnName(ts) == SampleDataClass.TestFieldAttribute);
+
+            Assert.IsTrue(sutFound, "Failed to find column name for the field with attributes");
         }
     }
 }
