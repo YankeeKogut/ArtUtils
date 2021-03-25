@@ -7,18 +7,19 @@ namespace ArtUtils.Net.Integration.Tests
 {
     public class MergeTests
     {
+        const string ConnectionString = "Data Source=localhost;Initial Catalog=MergeTest;Integrated Security=SSPI";
+
         [Test]
         public void MergeTest()
         {
-            const string connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MergeTest;Integrated Security=SSPI";
-
+            
             var sampleDataList = new List<SampleDataClass>
             {
                 new SampleDataClass { ProductID = 1, ProductNameDifferentFromDbColumnName = "One" },
                 new SampleDataClass { ProductID = 2, ProductNameDifferentFromDbColumnName = "Two" }
             };
 
-            var connection = new SqlConnection(connectionString);
+            var connection = new SqlConnection(ConnectionString);
             connection.Open();
 
             var clearCommand = new SqlCommand("DELETE FROM Products", connection);
@@ -44,7 +45,7 @@ namespace ArtUtils.Net.Integration.Tests
                 sut.Add(new SampleDataClass
                 {
                     ProductID = Convert.ToInt32(dr["ProductId"]),
-                    ProductNameDifferentFromDbColumnName = dr["Product_Name_DifferentFromDBColumnName"].ToString()
+                    ProductNameDifferentFromDbColumnName = dr["ProductName"].ToString()
                 });
 
             }
@@ -55,15 +56,13 @@ namespace ArtUtils.Net.Integration.Tests
         [Test]
         public void MergeWrongSchemaTest()
         {
-            const string connectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=MergeTest;Integrated Security=SSPI";
-
             var sampleDataList = new List<SampleDataClass>
             {
                 new SampleDataClass { ProductID = 1, ProductNameDifferentFromDbColumnName = "One" },
                 new SampleDataClass { ProductID = 2, ProductNameDifferentFromDbColumnName = "Two" }
             };
 
-            var connection = new SqlConnection(connectionString);
+            var connection = new SqlConnection(ConnectionString);
             connection.Open();
 
             var clearCommand = new SqlCommand("DELETE FROM Products", connection);
@@ -89,7 +88,7 @@ namespace ArtUtils.Net.Integration.Tests
                 sut.Add(new SampleDataClass
                 {
                     ProductID = Convert.ToInt32(dr["ProductId"]),
-                    ProductNameDifferentFromDbColumnName = dr["Product_Name_DifferentFromDBColumnName"].ToString()
+                    ProductNameDifferentFromDbColumnName = dr["ProductName"].ToString()
                 });
 
             }
