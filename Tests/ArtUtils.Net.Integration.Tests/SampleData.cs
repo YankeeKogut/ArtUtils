@@ -1,8 +1,13 @@
-﻿namespace ArtUtils.Net.Integration.Tests
+﻿using ArtUtils.Net.Attributes;
+
+namespace ArtUtils.Net.Integration.Tests
 {
     class SampleDataClass
     {
+        
         public int ProductID { get; set; }
-        public string ProductName { get; set; }
+        
+        [FieldName("ProductName")]
+        public string ProductNameDifferentFromDbColumnName { get; set; }
     }
 }
