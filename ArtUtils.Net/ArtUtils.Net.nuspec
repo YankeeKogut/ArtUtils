@@ -2,17 +2,17 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.8.0</version>
+    <version>$version$</version>
     <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <authors>Alex Artsikhovsky</authors>
+    <owners>Alex Artsikhovsky</owners>
     <licenseUrl>https://github.com/YankeeKogut/ArtUtils</licenseUrl>
     <projectUrl>https://github.com/YankeeKogut/ArtUtils</projectUrl>
     <iconUrl>https://github.com/YankeeKogut/ArtUtils</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Set of fast utilities for Bulk SQL operations in .NET</description>
     <releaseNotes>Added FieldName attributes</releaseNotes>
     <copyright>Copyright 2020 Square Circle / Artsikhovsky</copyright>
-    <tags>Bulk SQL Operations Utilities for .NET</tags>
+    <tags>Bulk Fast SQL Utilities Insert Merge .NET</tags>
   </metadata>
 </package>
