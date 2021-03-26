@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>$id$</id>
-    <version>1.0.7.2</version>
+    <version>1.0.8.0</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -11,8 +11,8 @@
     <iconUrl>https://github.com/YankeeKogut/ArtUtils</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added Merge command and integration test for it</releaseNotes>
-    <copyright>Copyright 2019 Square Circle / Artsikhovsky</copyright>
-    <tags>Bulk SQL Utility</tags>
+    <releaseNotes>Added FieldName attributes</releaseNotes>
+    <copyright>Copyright 2020 Square Circle / Artsikhovsky</copyright>
+    <tags>Bulk SQL Operations Utilities for .NET</tags>
   </metadata>
 </package>

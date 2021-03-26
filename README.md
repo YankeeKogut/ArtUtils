@@ -37,3 +37,18 @@ A quick example:
 
 1.0.7.2 - Changed versioning to allow bug fix references
 	Fixed Merge method that was ignoring datatable schema name
+
+1.0.8.0 - Added field name attributes for DTO classes
+    Now you can define your DTO classes with field names different from database column names using 
+    [FieldName("...")] attribute
+    
+    for example:
+
+    class SampleDataClass
+    {
+        
+        public int ProductID { get; set; }
+        
+        [FieldName("ProductName")]  // column name in the database
+        public string ProductNameDifferentFromDbColumnName { get; set; }
+    }
