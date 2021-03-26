@@ -6,7 +6,7 @@
     <title>$title$</title>
     <authors>Alex Artsikhovsky</authors>
     <owners>Alex Artsikhovsky</owners>
-    <licenseUrl>https://github.com/YankeeKogut/ArtUtils</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/YankeeKogut/ArtUtils</projectUrl>
     <iconUrl>https://github.com/YankeeKogut/ArtUtils</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
