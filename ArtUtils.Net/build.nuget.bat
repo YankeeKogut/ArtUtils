@@ -1,1 +1,1 @@
-nuget pack ArtUtils.Net.csproj
+nuget pack -build ArtUtils.Net.csproj
