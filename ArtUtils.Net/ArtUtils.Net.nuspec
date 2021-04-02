@@ -8,7 +8,7 @@
     <owners>Alex Artsikhovsky</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/YankeeKogut/ArtUtils</projectUrl>
-    <iconUrl>https://github.com/YankeeKogut/ArtUtils</iconUrl>
+    <icon>images\square.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Set of fast utilities for Bulk SQL operations in .NET</description>
     <releaseNotes>Added check for the NULL elements in the input lists. New NullRecordInDataSetException will be thrown</releaseNotes>
@@ -18,4 +18,7 @@
       <group targetFramework=".NETFramework4.6.1" />
     </dependencies>
   </metadata>
+  <files>
+    <file src=".\icon\square.png" target="images\" />
+  </files>
 </package>
