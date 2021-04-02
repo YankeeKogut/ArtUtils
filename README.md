@@ -31,6 +31,9 @@ A quick example:
 
 ## Release history
 
+**1.0.8.1** - Added check for the NULL objects in the input lists. New NullRecordInDataSetException will be thrown.
+    Previously if input list or datatable contained null object or null row system will not save and will not fail.
+
 **1.0.8.0** - Added field name attributes for DTO classes
     Now you can define your DTO classes with field names different from database column names using [FieldName("...")] attribute
     

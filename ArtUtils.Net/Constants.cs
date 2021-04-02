@@ -7,5 +7,8 @@
 
         public const string ErrorMessageFixColumnsOrder =
             "Underlying data type error. Can be caused by mismatch in column order between table and entity object";
+
+        public const string ErrorNullRecordInDataSet =
+            "Input list has one or more NULL elements.";
     }
 }

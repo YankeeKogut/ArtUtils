@@ -29,6 +29,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,6 +46,7 @@
     <Compile Include="BulkISql.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Attributes\FieldName.cs" />
+    <Compile Include="Exceptions\NullRecordInDataSetException.cs" />
     <Compile Include="Interfaces\IBulkSql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables.cs" />

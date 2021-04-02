@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using ArtUtils.Net.Exceptions;
 using ArtUtils.Net.Interfaces;
 
 namespace ArtUtils.Net
@@ -35,6 +36,8 @@ namespace ArtUtils.Net
 
         public void Insert(DataTable dataTable, SqlConnection sqlConnection, string targetTableName, string targetSchemaName = "")
         {
+            CheckForNullRows(dataTable);
+
             var dest = GetTargetName(targetTableName, targetSchemaName);
 
             var bulkCopy =
@@ -92,6 +95,8 @@ namespace ArtUtils.Net
         public void Update(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,
             string targetSchema = "", List<string> fieldsToUpdate = null)
         {
+            CheckForNullRows(tableSource);
+
             var tempTableName = GetTempTableName();
             var dest = GetTargetName(targetTableName, targetSchema);
 
@@ -150,6 +155,9 @@ namespace ArtUtils.Net
         public void Merge(DataTable tableSource, SqlConnection connection, string keyFieldName, string targetTableName,
             string targetSchema = "", List<string> fieldsToUpdate = null)
         {
+
+            CheckForNullRows(tableSource);
+
             var tempTableName = GetTempTableName();
             var dest = GetTargetName(targetTableName, targetSchema);
 
@@ -204,6 +212,14 @@ namespace ArtUtils.Net
         #endregion
 
         #region Private methods
+
+        private static void CheckForNullRows(DataTable table)
+        {
+            if (table.Rows.Cast<DataRow>().Any(tableRow => tableRow == null))
+            {
+                throw new NullRecordInDataSetException(Constants.ErrorNullRecordInDataSet);
+            }
+        }
 
         private static string GetTargetName(string targetTableName, string targetSchema)
         {
