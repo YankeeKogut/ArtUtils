@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ArtUtils.Net.Exceptions;
 using NUnit.Framework;
 using DataTable = System.Data.DataTable;
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -81,6 +82,15 @@ namespace ArtUtils.Net.Unit.Tests
             var sutFound = properties.Any(ts => Tables.GetColumnName(ts) == SampleDataClass.TestFieldAttribute);
 
             Assert.IsTrue(sutFound, "Failed to find column name for the field with attributes");
+        }
+
+        [Test]
+        public void AssureNullExceptionThrown()
+        {
+            var dut = GenerateSampleData();
+            dut.Add(null);
+
+            Assert.Catch<NullRecordInDataSetException>(() => dut.ToDataTable(string.Empty, string.Empty));
         }
     }
 }
