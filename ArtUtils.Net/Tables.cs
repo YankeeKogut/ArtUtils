@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using ArtUtils.Net.Attributes;
+using ArtUtils.Net.Exceptions;
 
 namespace ArtUtils.Net
 {
@@ -27,6 +28,11 @@ namespace ArtUtils.Net
 
             foreach (var entity in list)
             {
+                if (entity == null)
+                {
+                    throw new NullRecordInDataSetException(Constants.ErrorNullRecordInDataSet);
+                }
+
                 var values = new object[properties.Length];
                 for (var i = 0; i < properties.Length; i++)
                 {
