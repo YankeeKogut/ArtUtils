@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Set of fast utilities for Bulk SQL operations in .NET</description>
     <releaseNotes>Added check for the NULL elements in the input lists. New NullRecordInDataSetException will be thrown</releaseNotes>
-    <copyright>Copyright 2020 Square Circle / Artsikhovsky</copyright>
+    <copyright>Copyright 2021 Square Circle / Artsikhovsky</copyright>
     <tags>Bulk Fast SQL Utilities Insert Merge .NET</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.1" />
