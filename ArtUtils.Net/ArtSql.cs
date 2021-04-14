@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection;
+using ArtUtils.Net.Core.Attributes;
 using ArtUtils.Net.Core.Classes;
 using ArtUtils.Net.Core.Exceptions;
 using ArtUtils.Net.Interfaces;
@@ -14,7 +16,7 @@ namespace ArtUtils.Net
             var validationResult = VerifyTablesAttributes(listWithChildObjects);
             if (!validationResult.Valid)
             {
-                throw new TableAttributesException(Constants.ErrorTableAttributesMissing, 
+                throw new TableAttributesException(Constants.ErrorTableAttributesMissing,
                     new Exception(string.Join(Environment.NewLine, validationResult.Errors)));
             }
 
@@ -24,6 +26,19 @@ namespace ArtUtils.Net
         private ValidationResult VerifyTablesAttributes<T>(IEnumerable<T> listWithChildObjects)
         {
             throw new NotImplementedException();
+        }
+
+        internal static string GetBaseNameAttributeName<T>(PropertyInfo info) where T : BaseNameAttribute
+        {
+            var result = info.Name;
+            foreach (var attr in Attribute.GetCustomAttributes(info))
+            {
+                if (!(attr is T fn)) continue;
+                result = fn.Name;
+                break;
+            }
+
+            return result;
         }
     }
 }

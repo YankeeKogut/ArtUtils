@@ -1,13 +1,9 @@
-﻿using System;
-
-namespace ArtUtils.Net.Core.Attributes
+﻿namespace ArtUtils.Net.Core.Attributes
 {
-    public class KeyField : Attribute
+    public class KeyField : BaseNameAttribute
     {
-        public KeyField(string name)
+        public KeyField(string name) : base(name)
         {
-            Name = name;
         }
-        public string Name { get; }
     }
 }

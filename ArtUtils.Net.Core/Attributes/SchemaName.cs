@@ -1,13 +1,9 @@
-﻿using System;
-
-namespace ArtUtils.Net.Core.Attributes
+﻿namespace ArtUtils.Net.Core.Attributes
 {
-    public class SchemaName : Attribute
+    public class SchemaName : BaseNameAttribute
     {
-        public SchemaName(string name)
+        public SchemaName(string name) : base(name)
         {
-            Name = name;
         }
-        public string Name { get; }
     }
 }

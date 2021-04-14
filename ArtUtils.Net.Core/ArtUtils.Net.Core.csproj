@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\BaseNameAttribute.cs" />
     <Compile Include="Attributes\FieldName.cs" />
     <Compile Include="Attributes\KeyField.cs" />
     <Compile Include="Attributes\ParentKeyField.cs" />

@@ -1,13 +1,9 @@
-﻿using System;
-
-namespace ArtUtils.Net.Core.Attributes
+﻿namespace ArtUtils.Net.Core.Attributes
 {
-    public class TableName : Attribute
+    public class TableName : BaseNameAttribute
     {
-        public TableName(string name)
+        public TableName(string name) : base(name)
         {
-            Name = name;
         }
-        public string Name { get; }
     }
 }
