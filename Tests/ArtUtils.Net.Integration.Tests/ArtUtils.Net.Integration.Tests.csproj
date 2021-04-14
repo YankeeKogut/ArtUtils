@@ -59,6 +59,10 @@
     <Content Include="CreateTestDB.SQL" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ArtUtils.Net.Core\ArtUtils.Net.Core.csproj">
+      <Project>{FB4A28AE-7E3D-4B83-91F5-9E641ACD656E}</Project>
+      <Name>ArtUtils.Net.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ArtUtils.Net\ArtUtils.Net.csproj">
       <Project>{B27698EC-4DFD-44BA-A818-FBA144956FA0}</Project>
       <Name>ArtUtils.Net</Name>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ArtUtils.Net.Exceptions;
+using ArtUtils.Net.Core.Exceptions;
 using NUnit.Framework;
 using DataTable = System.Data.DataTable;
 // ReSharper disable UnusedAutoPropertyAccessor.Local
@@ -66,7 +66,7 @@ namespace ArtUtils.Net.Unit.Tests
             var type = typeof(SampleDataClass);
             var properties = type.GetProperties();
 
-            var sutFound = properties.Any(ts => Tables.GetColumnName(ts) == "ProductID");
+            var sutFound = properties.Any(ts => Tables.GetColumnName(ts) == "ProductId");
 
             Assert.IsTrue(sutFound, "Failed to find column name for the field without attributes");
         }

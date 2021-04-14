@@ -15,8 +15,8 @@ namespace ArtUtils.Net.Integration.Tests
             
             var sampleDataList = new List<SampleDataClass>
             {
-                new SampleDataClass { ProductID = 1, ProductNameDifferentFromDbColumnName = "One" },
-                new SampleDataClass { ProductID = 2, ProductNameDifferentFromDbColumnName = "Two" }
+                new SampleDataClass { ProductId = 1, ProductNameDifferentFromDbColumnName = "One" },
+                new SampleDataClass { ProductId = 2, ProductNameDifferentFromDbColumnName = "Two" }
             };
 
             var connection = new SqlConnection(ConnectionString);
@@ -29,8 +29,8 @@ namespace ArtUtils.Net.Integration.Tests
 
             var mergeDataList = new List<SampleDataClass>
             {
-                new SampleDataClass { ProductID = 2, ProductNameDifferentFromDbColumnName = "ModifiedTwo" },
-                new SampleDataClass { ProductID = 3, ProductNameDifferentFromDbColumnName = "Three" }
+                new SampleDataClass { ProductId = 2, ProductNameDifferentFromDbColumnName = "ModifiedTwo" },
+                new SampleDataClass { ProductId = 3, ProductNameDifferentFromDbColumnName = "Three" }
             };
 
             new BulkSql().Merge(mergeDataList.ToDataTable("Products"), connection, "ProductId");
@@ -44,7 +44,7 @@ namespace ArtUtils.Net.Integration.Tests
             {
                 sut.Add(new SampleDataClass
                 {
-                    ProductID = Convert.ToInt32(dr["ProductId"]),
+                    ProductId = Convert.ToInt32(dr["ProductId"]),
                     ProductNameDifferentFromDbColumnName = dr["ProductName"].ToString()
                 });
 
@@ -58,8 +58,8 @@ namespace ArtUtils.Net.Integration.Tests
         {
             var sampleDataList = new List<SampleDataClass>
             {
-                new SampleDataClass { ProductID = 1, ProductNameDifferentFromDbColumnName = "One" },
-                new SampleDataClass { ProductID = 2, ProductNameDifferentFromDbColumnName = "Two" }
+                new SampleDataClass { ProductId = 1, ProductNameDifferentFromDbColumnName = "One" },
+                new SampleDataClass { ProductId = 2, ProductNameDifferentFromDbColumnName = "Two" }
             };
 
             var connection = new SqlConnection(ConnectionString);
@@ -72,8 +72,8 @@ namespace ArtUtils.Net.Integration.Tests
 
             var mergeDataList = new List<SampleDataClass>
             {
-                new SampleDataClass { ProductID = 2, ProductNameDifferentFromDbColumnName = "ModifiedTwo" },
-                new SampleDataClass { ProductID = 3, ProductNameDifferentFromDbColumnName = "Three" }
+                new SampleDataClass { ProductId = 2, ProductNameDifferentFromDbColumnName = "ModifiedTwo" },
+                new SampleDataClass { ProductId = 3, ProductNameDifferentFromDbColumnName = "Three" }
             };
 
             Assert.Throws<SqlException>(()=> new BulkSql().Merge(mergeDataList.ToDataTable("Products", "WromgSchema"), connection, "ProductId"));
@@ -87,7 +87,7 @@ namespace ArtUtils.Net.Integration.Tests
             {
                 sut.Add(new SampleDataClass
                 {
-                    ProductID = Convert.ToInt32(dr["ProductId"]),
+                    ProductId = Convert.ToInt32(dr["ProductId"]),
                     ProductNameDifferentFromDbColumnName = dr["ProductName"].ToString()
                 });
 

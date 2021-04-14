@@ -10,5 +10,11 @@
 
         public const string ErrorNullRecordInDataSet =
             "Input list has one or more NULL elements.";
+
+        public const string ErrorTableAttributesMissing =
+            "Table attributes missing. Please make sure that all objects have TableName and KeyField attributes and ParentKeyField attribute if nested and needed";
+
+        public const string DefaultSchemaName = "dbo";
+
     }
 }

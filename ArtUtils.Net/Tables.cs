@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
-using ArtUtils.Net.Attributes;
-using ArtUtils.Net.Exceptions;
+using ArtUtils.Net.Core.Attributes;
+using ArtUtils.Net.Core.Exceptions;
 
 namespace ArtUtils.Net
 {

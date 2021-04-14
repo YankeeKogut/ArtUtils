@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ArtUtils.Net.Exceptions
+namespace ArtUtils.Net.Core.Exceptions
 {
 
     public class NullRecordInDataSetException : Exception

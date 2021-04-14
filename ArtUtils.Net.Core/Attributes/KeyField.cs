@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace ArtUtils.Net.Attributes
+namespace ArtUtils.Net.Core.Attributes
 {
-    public class FieldName : Attribute
+    public class KeyField : Attribute
     {
-        public FieldName(string name)
+        public KeyField(string name)
         {
             Name = name;
         }
