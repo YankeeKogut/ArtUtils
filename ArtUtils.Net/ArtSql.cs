@@ -30,7 +30,7 @@ namespace ArtUtils.Net
 
         internal static string GetBaseNameAttributeName<T>(PropertyInfo info) where T : BaseNameAttribute
         {
-            var result = info.Name;
+            string result = null;
             foreach (var attr in Attribute.GetCustomAttributes(info))
             {
                 if (!(attr is T fn)) continue;
