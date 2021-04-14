@@ -178,9 +178,9 @@ namespace ArtUtils.Net
                 $"MERGE {dest} AS TARGET ",
                 $"USING {tempTableName} AS SOURCE",
                 $"ON (TARGET.{keyFieldName} = SOURCE.{keyFieldName})",
-                $"WHEN MATCHED ",
+                "WHEN MATCHED ",
                 $"THEN UPDATE SET {updateColumnsString}",
-                $"WHEN NOT MATCHED BY TARGET ",
+                "WHEN NOT MATCHED BY TARGET ",
                 $"THEN INSERT ({string.Join("," + Environment.NewLine, insertColumnList)}) ",
                 $"VALUES ({string.Join("," + Environment.NewLine, insertSourceColumnList)});"
                 );
@@ -215,6 +215,7 @@ namespace ArtUtils.Net
 
         private static void CheckForNullRows(DataTable table)
         {
+            if (table == null) throw new ArgumentNullException(nameof(table));
             if (table.Rows.Cast<DataRow>().Any(tableRow => tableRow == null))
             {
                 throw new NullRecordInDataSetException(Constants.ErrorNullRecordInDataSet);

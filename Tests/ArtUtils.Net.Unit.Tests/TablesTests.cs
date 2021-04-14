@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ArtUtils.Net.Core.Exceptions;
 using NUnit.Framework;
@@ -52,7 +51,7 @@ namespace ArtUtils.Net.Unit.Tests
         {
             var dut = GenerateSampleData();
             const string nameSpace = "string name space";
-            var rut = dut.ToDataTable(String.Empty, nameSpace);
+            var rut = dut.ToDataTable(string.Empty, nameSpace);
 
             Assert.IsInstanceOf<DataTable>(rut);
             Assert.AreEqual(nameSpace, rut.Namespace);
@@ -61,8 +60,6 @@ namespace ArtUtils.Net.Unit.Tests
         [Test]
         public void GetColumnNameWithoutAttributes()
         {
-            var sample = new SampleDataClass();
-
             var type = typeof(SampleDataClass);
             var properties = type.GetProperties();
 
@@ -74,8 +71,6 @@ namespace ArtUtils.Net.Unit.Tests
         [Test]
         public void GetColumnNameWithAttributes()
         {
-            var sample = new SampleDataClass();
-
             var type = typeof(SampleDataClass);
             var properties = type.GetProperties();
 

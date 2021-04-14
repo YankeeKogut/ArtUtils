@@ -7,7 +7,7 @@ namespace ArtUtils.Net.Integration.Tests
 {
     public class MergeTests
     {
-        const string ConnectionString = "Data Source=localhost;Initial Catalog=MergeTest;Integrated Security=SSPI";
+        private const string ConnectionString = "Data Source=localhost;Initial Catalog=MergeTest;Integrated Security=SSPI";
 
         [Test]
         public void MergeTest()
@@ -76,7 +76,7 @@ namespace ArtUtils.Net.Integration.Tests
                 new SampleDataClass { ProductId = 3, ProductNameDifferentFromDbColumnName = "Three" }
             };
 
-            Assert.Throws<SqlException>(()=> new BulkSql().Merge(mergeDataList.ToDataTable("Products", "WromgSchema"), connection, "ProductId"));
+            Assert.Throws<SqlException>(()=> new BulkSql().Merge(mergeDataList.ToDataTable("Products", "WrongSchema"), connection, "ProductId"));
 
             var selectCommand = new SqlCommand("SELECT * FROM Products", connection);
             var dr = selectCommand.ExecuteReader();
