@@ -9,10 +9,9 @@ namespace ArtUtils.Net.Core
         public static ValidationResult VerifyTableName(object ObjectToCheck)
         {
             var result = new ValidationResult();
-            var dnAttribute = ObjectToCheck.GetType().GetCustomAttributes(
-                typeof(TableName), true).FirstOrDefault() as TableName;
 
-            if (dnAttribute != null && !string.IsNullOrEmpty(dnAttribute.Name))
+            if (ObjectToCheck.GetType().GetCustomAttributes(
+                typeof(TableName), true).FirstOrDefault() is TableName dnAttribute && !string.IsNullOrEmpty(dnAttribute.Name))
             {
                 result.Valid = true;
             }
