@@ -36,9 +36,16 @@ namespace ArtUtils.Net
             {
                 result.Valid = false; 
                 result.Errors.AddRange(tableNameValidation.Errors);
-                return result;
             }
-            
+
+            var keyFieldValidation = Validator.VerifyAttributeOnPropertiesPresent<KeyField>(listWithChildObjects, Constants.ErrorKeyFieldAttributeMissing);
+            if (!keyFieldValidation.Valid)
+            {
+                result.Valid = false;
+                result.Errors.AddRange(keyFieldValidation.Errors);
+            }
+
+
             throw new NotImplementedException();
         }
 

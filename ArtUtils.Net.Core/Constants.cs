@@ -11,11 +11,18 @@
         public const string ErrorNullRecordInDataSet =
             "Input list has one or more NULL elements.";
 
+        #region Attribute error messages
+
         public const string ErrorTableAttributesMissing =
             "Table attributes missing. Please make sure that all objects have TableName and KeyField attributes and ParentKeyField attribute if nested and needed";
 
-        public const string ErrorTableNameAttributeMissing =
-            "TableName attributes missing. ";
+        public const string ErrorTableNameAttributeMissing = "TableName attribute is missing. ";
+        
+        public const string ErrorKeyFieldAttributeMissing = "KeyField attribute is missing. ";
+        
+        public const string ErrorParentKeyFieldAttributeMissing = "ParentKeyField attribute is missing. ";
+
+        #endregion
 
         public const string DefaultSchemaName = "dbo";
 
