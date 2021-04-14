@@ -31,35 +31,21 @@ namespace ArtUtils.Net
             var result = new ValidationResult();
 
             var tableNameValidation = Validator.VerifyTableName(listWithChildObjects);
-
-            if (!tableNameValidation.Valid)
-            {
-                result.Valid = false; 
-                result.Errors.AddRange(tableNameValidation.Errors);
-            }
+            MergeValidations(tableNameValidation, result);
 
             var keyFieldValidation = Validator.VerifyAttributeOnPropertiesPresent<KeyField>(listWithChildObjects, Constants.ErrorKeyFieldAttributeMissing);
-            if (!keyFieldValidation.Valid)
-            {
-                result.Valid = false;
-                result.Errors.AddRange(keyFieldValidation.Errors);
-            }
+            MergeValidations(keyFieldValidation, result);
 
 
             throw new NotImplementedException();
         }
 
-        internal static string GetBaseNameAttributeName<T>(PropertyInfo info) where T : BaseNameAttribute
+        private static void MergeValidations(ValidationResult newValidation, ValidationResult mergeToValidation)
         {
-            string result = null;
-            foreach (var attr in Attribute.GetCustomAttributes(info))
-            {
-                if (!(attr is T fn)) continue;
-                result = fn.Name;
-                break;
-            }
-
-            return result;
+            if (newValidation.Valid) return;
+            
+            mergeToValidation.Valid = false;
+            mergeToValidation.Errors.AddRange(newValidation.Errors);
         }
     }
 }

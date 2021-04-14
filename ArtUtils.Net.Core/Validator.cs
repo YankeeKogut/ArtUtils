@@ -31,12 +31,10 @@ namespace ArtUtils.Net.Core
 
             foreach (var propertyInfo in properties)
             {
-                if (propertyInfo.GetCustomAttributes(typeof(T), true)
-                    .FirstOrDefault() is T dnAttribute && !string.IsNullOrEmpty(dnAttribute.Name))
-                {
-                    result.Valid = true;
-                    break;
-                }
+                if (!(propertyInfo.GetCustomAttributes(typeof(T), true)
+                    .FirstOrDefault() is T dnAttribute) || string.IsNullOrEmpty(dnAttribute.Name)) continue;
+                result.Valid = true;
+                break;
             }
 
             if (!result.Valid)
