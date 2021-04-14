@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
+using ArtUtils.Net.Core;
 using ArtUtils.Net.Core.Attributes;
 using ArtUtils.Net.Core.Exceptions;
 

@@ -1,4 +1,4 @@
-﻿namespace ArtUtils.Net
+﻿namespace ArtUtils.Net.Core
 {
     public static class Constants
     {

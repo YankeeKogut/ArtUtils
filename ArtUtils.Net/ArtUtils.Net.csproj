@@ -45,7 +45,6 @@
   <ItemGroup>
     <Compile Include="ArtSql.cs" />
     <Compile Include="BulkISql.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Interfaces\IArtSql.cs" />
     <Compile Include="Interfaces\IBulkSql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
