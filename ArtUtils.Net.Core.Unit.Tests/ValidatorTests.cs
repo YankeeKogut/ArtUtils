@@ -6,17 +6,17 @@ namespace ArtUtils.Net.Core.Unit.Tests
 {
     public class ValidatorTests
     {
+        #region Test classes
         [TableName("Well, this is the name")]
         internal class SampleClassWithValidTableName
         {
-
         }
 
         [TableName("")]
         internal class SampleClassWithoutValidTableName
         {
-
         }
+        #endregion
 
         [Test]
         public void VerifyTableNameAttributeWhenTableNameIsNotPresent()

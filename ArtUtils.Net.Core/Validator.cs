@@ -17,7 +17,7 @@ namespace ArtUtils.Net.Core
             }
             else
             {
-                result.Errors.Add(Constants.ErrorTableAttributesMissing);
+                result.Errors.Add(Constants.ErrorTableNameAttributeMissing);
             }
             return result;
 

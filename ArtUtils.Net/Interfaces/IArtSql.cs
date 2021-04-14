@@ -5,6 +5,6 @@ namespace ArtUtils.Net.Interfaces
 {
     public interface IArtSql
     {
-        void DeleteTree<T>(IEnumerable<T> listWithChildObjects, SqlConnection sqlConnection);
+        void DeleteTree<T>(List<T> listWithChildObjects, SqlConnection sqlConnection);
     }
 }

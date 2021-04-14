@@ -13,7 +13,7 @@ namespace ArtUtils.Net
 {
     public class ArtSql : IArtSql
     {
-        public void DeleteTree<T>(IEnumerable<T> listWithChildObjects, SqlConnection sqlConnection)
+        public void DeleteTree<T>(List<T> listWithChildObjects, SqlConnection sqlConnection)
         {
             var validationResult = VerifyTablesAttributes(listWithChildObjects);
             if (!validationResult.Valid)
@@ -25,8 +25,20 @@ namespace ArtUtils.Net
             throw new NotImplementedException();
         }
 
-        private ValidationResult VerifyTablesAttributes<T>(IEnumerable<T> listWithChildObjects)
+        private ValidationResult VerifyTablesAttributes<T>(List<T> listWithChildObjects)
         {
+
+            var result = new ValidationResult();
+
+            var tableNameValidation = Validator.VerifyTableName(listWithChildObjects);
+
+            if (!tableNameValidation.Valid)
+            {
+                result.Valid = false; 
+                result.Errors.AddRange(tableNameValidation.Errors);
+                return result;
+            }
+            
             throw new NotImplementedException();
         }
 
